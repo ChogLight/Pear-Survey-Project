@@ -2,18 +2,21 @@
  <!-- Main Content -->
  <main class="container">
     <div class="row">
+    <br>
         <div class="offset-md-1 col-md-10">
+
             <h1><%= title %></h1>
             <a href="/surveys/add" class="btn btn-primary" role="button"> <i class="fas fa-plus-circle"></i>
                 Add a survey</a>
             <br>
+                         
             <table class="table table-bordered table-striped table-hover">
                 <!-- Header Row-->
                 <tr class="d-flex">
                     <th class="text-center col-2">Title</th>
                     <th class="text-center col-2">Author</th>
                     <th class="text-center col-2">Question 1:</th>
-                    <th class="col-2">Question 2:</th>
+                    <th class="text-center col-2">Question 2:</th>
                     <th class="text-center col-2">Question 3:</th>
                     <th class="text-center col-1"></th>
                     <th class="text-center col-1"></th>
@@ -28,16 +31,18 @@
                         <td class="text-center col-2"><%= surveys[count].Question1 %></td>
                         <td class="col-2"><%= surveys[count].Question2 %></td>
                         <td class="text-center col-2"><%= surveys[count].Question3 %></td>
+          
                         <td class="text-center col-1">
                             <a href="/surveys//<%=surveys[count]._id %>" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pencil-alt">Edit</i>
+                                <i class="fas fa-pencil-alt"></i> &nbsp;Edit
                             </a>
                         </td>
                         <td class="text-center col-1">
                             <a href="/surveys/delete/<%=surveys[count]._id %>" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash-alt">Delete</i>
+                            <i class="fas fa-trash-alt"></i>&nbsp;Delete
                             </a>
                         </td>
+                        
                     </tr>
                 <% } %>
             </table>

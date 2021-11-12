@@ -5,7 +5,8 @@ import { SurveyComponent } from './pages/survey/survey.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'survey', component: SurveyComponent}
+  {path: 'survey', component: SurveyComponent},
+  {path: '', redirectTo: '/home', pathMatch:'full'}
 ];
 
 @NgModule({
