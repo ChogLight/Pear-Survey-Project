@@ -34,11 +34,11 @@ router.get('/add', (req, res, next) => {
 router.post('/add', (req, res, next) => {
 
    let newSurvey = survey({
-    "Title": req.body.Title,
-    "Author": req.body.Author,
-    "Question1": req.body.Question1,
-    "Question2": req.body.Question2,
-    "Question3": req.body.Question3,
+    "Title": req.body.title,
+    "Author": req.body.author,
+    "Question1": req.body.question1,
+    "Question2": req.body.question2,
+    "Question3": req.body.question3,
    });
    survey.create(newSurvey, (err, survey)=>{
     if(err){
@@ -73,11 +73,11 @@ router.post('/:id', (req, res, next) => {
    let id = req.params.id;
    let editedSurvey = survey({
      "_id": id,
-     "Title": req.body.Title,
-     "Author": req.body.Author,
-     "Question1": req.body.Question1,
-     "Question2": req.body.Question2,
-     "Question3": req.body.Question3,
+     "Title": req.body.title,
+     "Author": req.body.author,
+     "Question1": req.body.question1,
+     "Question2": req.body.question2,
+     "Question3": req.body.question3,
    });
    survey.updateOne({_id: id}, editedSurvey, (err)=>{
      if(err){
