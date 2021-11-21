@@ -8,11 +8,17 @@
             <form class="form" method="post">
             <div class=" col-md-12">                         
               <table class="table table-bordered table-striped table-hover">
+                <tr>
+                  <th class="text-left col-12"> Author: </th> 
+                </tr>
                 <tr class="d-flex">
-                    <td class="text-left col-12"><input type="text" class="form-control" name="author" value="Author:  <%= surveys.Author %>" required></td> 
+                    <td class="text-left col-12"><input type="text" class="form-control" name="author" value="<%= surveys.Author %>" required></td> 
+                  </tr>
+                  <tr>
+                    <th class="text-left col-12"> Title: </th> 
                   </tr>
                   <tr class="d-flex">
-                    <td class="text-left col-12"><input type="text" class="form-control" name="title" value="Title:  <%= surveys.Title %>" required></td>  
+                    <td class="text-left col-12"><input type="text" class="form-control" name="title" value="<%= surveys.Title %>" required></td>  
                   </tr>
                   <tr>
                     <th class="text-left col-12"> MC Questions: </th> 
