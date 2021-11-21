@@ -14,31 +14,32 @@ router.get('/', (req, res, next) => {
       return console.error(err);
     }
     else {
+      console.log(surveys)
       res.render('surveys/list', {
         title: 'surveys',
         surveys: surveys
       });
     }
   });
-  //  GET the survey details page in order to add a new survey
-router.get('/add', (req, res, next) => {
+
+  router.get('/add', (req, res, next) => {
   console.log("survey details page");
-  res.render('surveys/details', {
-    title: 'Add Survey',
+  res.render('surveys/add', {
+    title: 'Create Survey',
     surveys: ''
   });
 
 });
 
-// POST process the survey details page and create a new survey - CREATE
 router.post('/add', (req, res, next) => {
+  console.log(req.body);//author, title, question, row
 
-   let newSurvey = survey({
+  let newSurvey = survey({
     "Title": req.body.title,
-    "Author": req.body.author,
-    "Question1": req.body.question1,
-    "Question2": req.body.question2,
-    "Question3": req.body.question3,
+     "Author": req.body.author,
+     "MCQuestions": req.body.questionMC,
+     "TFQuestions": req.body.questionTF
+   
    });
    survey.create(newSurvey, (err, survey)=>{
     if(err){
@@ -52,8 +53,7 @@ router.post('/add', (req, res, next) => {
     });
   });
 
-// GET the survey Details page in order to edit an existing survey
-router.get('/:id', (req, res, next) => {
+router.get('/edit/:id', (req, res, next) => {
   let id = req.params.id;
   survey.findById(id, (err, surveyToEdit) =>{
     if(err)
@@ -63,21 +63,19 @@ router.get('/:id', (req, res, next) => {
     }
     else
     {
-      res.render('surveys/details', {title: 'Edit Survey', surveys: surveyToEdit});
+      res.render('surveys/edit', {title: 'Edit Survey', surveys: surveyToEdit});
     }
   });
 });
 
-// POST - process the information passed from the details form and update the document
-router.post('/:id', (req, res, next) => {
+router.post('/edit/:id', (req, res, next) => {
    let id = req.params.id;
    let editedSurvey = survey({
      "_id": id,
      "Title": req.body.title,
      "Author": req.body.author,
-     "Question1": req.body.question1,
-     "Question2": req.body.question2,
-     "Question3": req.body.question3,
+     "MCQuestions": req.body.questionMC,
+     "TFQuestions": req.body.questionTF,
    });
    survey.updateOne({_id: id}, editedSurvey, (err)=>{
      if(err){
@@ -109,6 +107,7 @@ router.get('/delete/:id', (req, res, next) => {
 });
 
 });
+
 
 
 module.exports = router;
