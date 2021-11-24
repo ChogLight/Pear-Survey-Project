@@ -14,7 +14,6 @@ let userModel = require('../models/user');
 let User = userModel.User; // alias
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'Pear Survey Builder' , displayName: req.user ? req.user.displayName : ''});

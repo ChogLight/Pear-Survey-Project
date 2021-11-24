@@ -60,8 +60,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session()); 
 
-// passport user configuration (Heylisse)
-
 // create a User Model Instance (Heylisse)
 let userModel = require('../models/user');   //Camila: models
 let User= userModel.User;
@@ -78,10 +76,6 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/surveys', surveysRouter);
-
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

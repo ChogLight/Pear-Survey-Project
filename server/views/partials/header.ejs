@@ -34,8 +34,9 @@
         <li class="nav-item">
         <% } %>
           <a class="nav-link" href="/surveys"><i class="fas fa-file-alt"></i> Surveys |</a>
-          <!-- Log in and log out -->
         </li>
+
+           <!-- Log in and log out -->
 
         <% if(typeof displayName == 'string' && displayName) { %>
           <li class="navbar-text"><i class="fas fa-lg fa-user"></i> Welcome, <%= displayName %> |</li>
@@ -44,7 +45,7 @@
         <% } else { %>
            <li class="nav-item">
              <a class="nav-link" href="/login">
-             <i class="fas fa-sign-out-alt fa-lg"></i> Login</a>
+             <i class="fas fa-lg fa-sign-in-alt"></i> Login</a>
            </li>
         <% } %>
       </ul>
