@@ -6,23 +6,31 @@
         <div class="col-md-offset-1 col-md-12">
 
             <h1>Surveys</h1>
+            <% if(typeof displayName == 'string' && displayName) { %>
             <a href="/surveys/add" class="btn btn-primary" role="button"> <i class="fas fa-plus-circle"></i>
                 Create a Survey</a>
+            <% } %>
             <br>
                          
             <table class="table table-bordered table-striped table-hover">
                 <!-- Header Row-->
                 <tr class="d-flex">
+                    <% if(typeof displayName == 'string' && displayName) { %>
                     <th class="text-center col-4">Author</th>
                     <th class="text-center col-4">Title</th>
                     <th class="text-center col-2"></th>
                     <th class="text-center col-2"></th>
+                    <% } else { %>
+                    <th class="text-center col-4">Author</th>
+                    <th class="text-center col-4">Title</th>
+                     <% } %>
                 </tr>
 
                 <!-- Repeatable Template Row -->
 
                 <% for(let count = 0; count < surveys.length; count++) { %>
                     <tr class="d-flex">
+                        <% if(typeof displayName == 'string' && displayName) { %>
                         <td class="text-center col-4"><%= surveys[count].Author %></td> 
                         <td class="text-center col-4"><%= surveys[count].Title %></td>  
                         <td class="text-center col-2">
@@ -35,6 +43,10 @@
                             <i class="fas fa-trash-alt"></i>&nbsp;Delete
                             </a>
                         </td>
+                        <% } else { %>
+                        <td class="text-center col-4"><%= surveys[count].Author %></td> 
+                        <td class="text-center col-4"><%= surveys[count].Title %></td>  
+                        <% } %>
                     </tr>
                 <% } %>
             </table>

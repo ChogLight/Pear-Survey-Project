@@ -4,11 +4,23 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+//Modules for authentification (Heylisse)
+let session = require('express-session');
+let passport = require('passport');
+
+let passportJWT = require('passport-jwt');
+let JWTStrategy = passportJWT.Strategy;
+let ExtractJWT = passportJWT.ExtractJwt;
+
+let passportLocal = require('passport-local');
+let localStrategy = passportLocal.Strategy;
+
+let flash = require('connect-flash');
+
 // import "mongoose" - required for DB Access
 let mongoose = require('mongoose');
 // URI
-let DB = require('./db');
-
+let DB = require('./db')
 mongoose.connect(process.env.URI || DB.URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 let mongoDB = mongoose.connection;
@@ -34,9 +46,42 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
+//setup express session (Heylisse)
+app.use(session({
+  secret:"SomeSecrete",
+  saveUninitialized: false,
+  resave: false
+}));
+
+//Initialize flash (Heylisse)
+app.use(flash());
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session()); 
+
+// passport user configuration (Heylisse)
+
+// create a User Model Instance (Heylisse)
+let userModel = require('../models/user');   //Camila: models
+let User= userModel.User;
+
+// implement a User Authentication strategy (H)
+passport.use(User.createStrategy());
+
+// serialize and seserialize the user info (Heylisse)
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/surveys', surveysRouter);
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
