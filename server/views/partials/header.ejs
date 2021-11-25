@@ -27,14 +27,14 @@
         <% } %>
           <a class="nav-link" href="/"><i class="fas fa-home"></i> Home |</a>
         </li>
-
         <% if (title == "Surveys") { %>
         <li class="nav-item active">
         <% } else  { %>
-        
+          <li class="nav-item">
         <% } %>
+        <a class="nav-link" href="/surveys"><i class="fas fa-book"></i> Surveys | </a>
+      </li>
           
-
            <!-- Log in and log out -->
 
         <% if(typeof displayName == 'string' && displayName) { %>
