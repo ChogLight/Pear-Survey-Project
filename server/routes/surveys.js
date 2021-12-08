@@ -32,13 +32,9 @@ router.get("/", (req, res, next) => {
       res.render("surveys/list", {
         title: "surveys",
         surveys: surveys,
-<<<<<<< HEAD
         displayName: req.user ? req.user.displayName : '',
         user: req.user
 
-=======
-        displayName: req.user ? req.user.displayName : "",
->>>>>>> 1799bc5500b58e897ae9998b868185f760e8a4b6
       });
       
     }
@@ -56,7 +52,6 @@ router.get("/", (req, res, next) => {
   router.post("/add", requireAuth, (req, res, next) => {
     console.log(req.body); //author, title, question, row
 
-<<<<<<< HEAD
   let newSurvey = survey({
     "User": req.user.id,
     "Title": req.body.title,
@@ -67,16 +62,6 @@ router.get("/", (req, res, next) => {
    });
    survey.create(newSurvey, (err, survey)=>{
     if(err){
-=======
-    let newSurvey = survey({
-      Title: req.body.title,
-      Author: req.body.author,
-      MCQuestions: req.body.questionMC,
-      TFQuestions: req.body.questionTF,
-    });
-    survey.create(newSurvey, (err, survey) => {
-      if (err) {
->>>>>>> 1799bc5500b58e897ae9998b868185f760e8a4b6
         console.log(err);
         res.end(err);
       } else {
