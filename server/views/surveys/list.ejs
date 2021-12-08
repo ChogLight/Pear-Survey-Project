@@ -30,7 +30,7 @@
 
                 <% for(let count = 0; count < surveys.length; count++) { %>
                     <tr class="d-flex">
-                        <% if(typeof displayName == 'string' && displayName) { %>
+                        <% if(typeof displayName == 'string' && displayName && surveys[count].User == user.id) { %>
                         <td class="text-center col-4"><%= surveys[count].Author %></td> 
                         <td class="text-center col-4"><%= surveys[count].Title %></td>  
                         <td class="text-center col-2">
@@ -44,8 +44,7 @@
                             </a>
                         </td>
                         <% } else { %>
-                        <td class="text-center col-6"><%= surveys[count].Author %></td> 
-                        <td class="text-center col-6"><%= surveys[count].Title %></td>  
+
                         <% } %>
                     </tr>
                 <% } %>

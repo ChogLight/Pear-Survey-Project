@@ -1,33 +1,55 @@
 <%- include ./partials/header.ejs %>
- <main class="container">
-   <div>
-    <body>
-      <div class="container">
-              <table class="table table-center",>
+<div class="container">
+  <br>
+  <h1>Home</h1>
+  <div class="row">
+      <div class="col-sm">
+          <br>
+          <br>
+          <h3>Survey builder</h3>
+          <p class="text-left">Welcome to the Pear survey builder, a tool that will help you to create, share and fill
+              surveys in an easy and organized way. You will be able to create surveys with multiple choice questions and 
+              true or false questions. To create surveys create an account or if you want to fill a survey as an anonymous person
+              you can select surveys from the public surveys table.</p>
+      </div>
+     <div class="col-sm">
+         <h2>Public surveys</h2>
+         <table class="table">
           <thead>
-            <tr>
-              <th class="center"><h1>Welcome to Pear Survey Builder</h1> </th>
-            </tr>
-                          <br>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Author</th>
+                <th scope="col">Survey</th>
+                <th scope="col">Number of answers</th>
+              </tr>
           </thead>
           <tbody>
-            <tr>
-            
-              <td><h4><b> Would you like to have a better understanding of your customers, your employees, and your competitors?</b></h4></td>
-            </tr>
-            <tr>
-              <th><h4>Our survey builder will help you to collect all that important data that will collaborate with your business decision. </h4></th>
-            </tr>
-            <tr>
-              <th scope="row"><h4>With an easy and interactive application that will save you time and money.</h4></th>
-            </tr>
+              <% for(let count=0; count < surveys.length; count++ ) {%>
+                  <tr>
+                      <th scope="row">
+                          <%= count +1 %>
+                      </th>
+                      <td>
+                          <%= surveys[count].Author %>
+                      </td>
+                      <td>
+                          <%= surveys[count].Title %>
+                      </td>
+                      <td>
+                          
+                      </td>
+                      <td>
+                        <a href="/contact/edit/<%= surveys[count]._id %>" class="btn btn-dark btn-sm edit"><i class="fas fa-edit fa-sm"></i> Answer</a>
+                      </td>
+                    </tr>
+                  <% } %>
           </tbody>
-        </table>
-        <div class="text-center">
-        <img src="content/assets/images/survey.jpg" alt="logo" style= "height: 500px; width: 300x;"></a>
-        </div>
-    </div>
-    </body>
-   </div>
- </main>
+          </table>
+         </div>
+     </div>
+  </div>
+ 
+
+
+</div>
 <%- include ./partials/footer.ejs %>

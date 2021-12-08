@@ -67,7 +67,7 @@ let User= userModel.User;
 // implement a User Authentication strategy (H)
 passport.use(User.createStrategy());
 
-// serialize and seserialize the user info (Heylisse)
+// serialize and deserialize the user info (Heylisse)
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

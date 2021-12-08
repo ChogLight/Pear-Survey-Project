@@ -12,11 +12,25 @@ let DB = require('../config/db');
 // create the User Model instance
 let userModel = require('../models/user');
 let User = userModel.User; // alias
+let survey = require('../models/surveys')
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Pear Survey Builder' , displayName: req.user ? req.user.displayName : ''});
+    survey.find( (err, surveys) => {
+        if (err) {
+          return console.error(err);
+        }
+        else {
+          console.log(surveys)
+          res.render('home', {
+            title: 'Pear Survey Builder',
+            surveys: surveys,
+            displayName: req.user ? req.user.displayName : ''
+          });
+          
+        }
+      });
 });
 /* GET home page. */
 router.get('/home', function(req, res, next) {
