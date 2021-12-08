@@ -37,6 +37,11 @@ router.get('/home', function(req, res, next) {
   res.render('home', { title: 'Pear Survey Builder' , displayName: req.user ? req.user.displayName : ''});
 });
 
+/* GET about page. Heylisse */
+router.get('/about', function(req, res, next) {
+    res.render('about', { title: 'About Us' , displayName: req.user ? req.user.displayName : ''});
+  });
+
 //Camila: Pass code from modules to routes folder⏬⏬
 
 /* GET Route for displaying the login page. (Heylisse)*/

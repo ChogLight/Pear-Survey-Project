@@ -1,0 +1,96 @@
+<%- include ./partials/header.ejs %>
+<main>
+  <head>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <style>
+    .jumbotron {
+      background-color: #f4511e;
+      color: #fff;
+      padding: 100px 25px;
+    }
+    .container-fluid {
+      padding: 40px 30px;
+    }
+    .bg-grey {
+      background-color: #f6f6f6;
+    }
+    .logo-small {
+      color: #f4511e;
+      font-size: 50px;
+    }
+    .logo {
+      color: #f4511e;
+      font-size: 200px;
+    }
+    @media screen and (max-width: 500px) {
+      .col-sm-4 {
+        text-align: center;
+        margin: 25px 0;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <section class="py-2 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-10 col-md-8 mx-auto">
+          <h1 class="fw-light">Meet Our Team</h1>
+          <p class="lead text-muted">Our team is the strongest asset of this organization. It is compounded by a perfect balance set of people with the right skills to make Pear Survey the best survey builder in Toronto's market. </p>
+        </div>
+      </div>
+    </section> 
+  <!-- Container (Portfolio Section) -->
+  <div class="container-fluid text-center bg-grey">
+    <div class="row text-center">
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="content/assets/images/Alexandra.jpg" alt="Alezandra" style= "height: 250px; width: 200px;">
+          <p><strong>Alexandra Zuniga </strong></p>
+          <p>Database Programmer</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="content/assets/images/Geejay.png" alt="Geejay" style= "height: 250px; width: 200px;">
+          <p><strong>Geejay Damasco</strong></p>
+          <p>Project Manager</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="content/assets/images/Juan.png" alt="Juan" style= "height: 250px; width: 200px;">
+          <p><strong>Juan Sebastian Galvis</strong></p>
+          <p>Lead Software Engineer</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="content/assets/images/Heylisse.jpg" class="figure-img img-fluid rounded" alt="Heylisse"style= " height: 250px; width: 200px; margin-bottom: 10px;">
+          <p><strong>Heylisse Machado</strong></p>
+          <p>Web Designer</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="content/assets/images/Camila.jpg" alt="Camila" style= "height: 250px; width: 200px;">
+          <p><strong>Camila Nieto Moya</strong></p>
+          <p>UI Programmer</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="content/assets/images/Gustavo.jpg" alt="Gustavo" style= "height: 250px; width: 200px;">
+            <p><strong>Gistavo Gomes</strong></p>
+            <p>Generalist Programmer </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </body>
+
+
+ </main>
+<%- include ./partials/footer.ejs %>
