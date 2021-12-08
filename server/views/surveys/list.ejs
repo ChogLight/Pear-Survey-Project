@@ -1,33 +1,35 @@
 <%- include ../partials/header.ejs %>
- <!-- Main Content -->
- <main class="container">
-    <div class="row">
-    <br>
-        <div class="col-md-offset-1 col-md-12">
+<!-- Main Content -->
+<main class="container">
+  <div class="row">
+    <br />
+    <div class="col-md-offset-1 col-md-12">
+      <h1>Surveys</h1>
+      <% if(typeof displayName == 'string' && displayName) { %>
+      <a href="/surveys/add" class="btn btn-primary" role="button">
+        <i class="fas fa-plus-circle"></i> Create a Survey</a
+      >
+      <% } %>
+      <br />
 
-            <h1>Surveys</h1>
-            <% if(typeof displayName == 'string' && displayName) { %>
-            <a href="/surveys/add" class="btn btn-primary" role="button"> <i class="fas fa-plus-circle"></i>
-                Create a Survey</a>
-            <% } %>
-            <br>
-                         
-            <table class="table table-bordered table-striped table-hover">
-                <!-- Header Row-->
-                <tr class="d-flex">
-                    <% if(typeof displayName == 'string' && displayName) { %>
-                    <th class="text-center col-4">Author</th>
-                    <th class="text-center col-4">Title</th>
-                    <th class="text-center col-2"></th>
-                    <th class="text-center col-2"></th>
-                    <% } else { %>
-                    <th class="text-center col-6">Author</th>
-                    <th class="text-center col-6">Title</th>
-                     <% } %>
-                </tr>
+      <table class="table table-bordered table-striped table-hover">
+        <!-- Header Row-->
+        <tr class="d-flex">
+          <% if(typeof displayName == 'string' && displayName) { %>
+          <th class="text-center col-4">Author</th>
+          <th class="text-center col-4">Title</th>
+          <th class="text-center col-2"></th>
+          <th class="text-center col-2"></th>
+          <% } else { %>
+          <th class="text-center col-4">Author</th>
+          <th class="text-center col-4">Title</th>
+          <th class="text-center col-4"></th>
+          <% } %>
+        </tr>
 
-                <!-- Repeatable Template Row -->
+        <!-- Repeatable Template Row -->
 
+<<<<<<< HEAD
                 <% for(let count = 0; count < surveys.length; count++) { %>
                     <tr class="d-flex">
                         <% if(typeof displayName == 'string' && displayName && surveys[count].User == user.id) { %>
@@ -52,6 +54,47 @@
             <br>
             <br>
         </div>
+=======
+        <% for(let count = 0; count < surveys.length; count++) { %>
+        <tr class="d-flex">
+          <% if(typeof displayName == 'string' && displayName) { %>
+          <td class="text-center col-4"><%= surveys[count].Author %></td>
+          <td class="text-center col-4"><%= surveys[count].Title %></td>
+          <td class="text-center col-2">
+            <a
+              href="/surveys/edit/<%=surveys[count]._id %>"
+              class="btn btn-primary btn-sm"
+            >
+              <i class="fas fa-pencil-alt"></i> &nbsp;Edit
+            </a>
+          </td>
+          <td class="text-center col-2">
+            <a
+              href="/surveys/delete/<%=surveys[count]._id %>"
+              class="btn btn-danger btn-sm"
+            >
+              <i class="fas fa-trash-alt"></i>&nbsp;Delete
+            </a>
+          </td>
+          <% } else { %>
+          <td class="text-center col-4"><%= surveys[count].Author %></td>
+          <td class="text-center col-4"><%= surveys[count].Title %></td>
+          <td class="text-center col-4">
+            <a
+              href="/surveys/take/<%=surveys[count]._id %>"
+              class="btn btn-primary btn-sm"
+            >
+              <i class="fas fa-pencil-alt"></i> &nbsp;Take
+            </a>
+          </td>
+          <% } %>
+        </tr>
+        <% } %>
+      </table>
+      <br />
+      <br />
+>>>>>>> 1799bc5500b58e897ae9998b868185f760e8a4b6
     </div>
-  </main>
-  <%- include ../partials/footer.ejs %>
+  </div>
+</main>
+<%- include ../partials/footer.ejs %>
