@@ -22,31 +22,32 @@
                   </tr>
                   <tr>
                     <th class="text-left col-12"> MC Questions: </th> 
+                    <input id="mclength" value="<%=surveys.MCQuestions.length%>">
+
+                    
                   </tr>
                     <% for(let count = 0; count < surveys.MCQuestions.length; count++) { %>
-                      <tr class="d-flex">
-                        <% if(count% 4 == 0 && count > 0){ %>
-                          <td class="text-left col-12"><input type="text" class="form-control" name="questionMC" value="<%= surveys.MCQuestions[count] %>" hidden="hidden" ></td> 
-                          <%} else {%>
-                            <td class="text-left col-12"><input type="text" class="form-control" name="questionMC" value="<%= surveys.MCQuestions[count] %>" required></td> 
-                            <% } %>
-                    </tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Title %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option1 %>" required ></td></tr> 
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option2 %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option3 %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option4 %>" required></td></tr>
                       <% } %>
                       <tr>
                         <th class="text-left col-12"> TF Questions: </th> 
+                        <input id="tflength" value="<%=surveys.TFQuestions.length%>">
+
                       </tr>
                       <% for(let count = 0; count < surveys.TFQuestions.length; count++) { %>
-                        <tr class="d-flex">
-                          <% if(count% 3 == 0 && count > 0){ %>
-                        <td class="text-left col-12"><input type="text" class="form-control" name="questionTF" value="<%= surveys.TFQuestions[count] %>" hidden="hidden"></td> 
-                        <%} else {%>
-                          <td class="text-left col-12"><input type="text" class="form-control" name="questionTF" value="<%= surveys.TFQuestions[count] %>" required></td> 
-                          <% } %>
-                      </tr>
+                        <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsTF" value="<%= surveys.TFQuestions[count].Title %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsTF" value="<%= surveys.TFQuestions[count].Option1 %>" required readonly="readonly"></td></tr>
+                    <tr> <td class="text-left col-12"><input type="text" class="form-control" name="questionsTF" value="<%= surveys.TFQuestions[count].Option2 %>" required readonly="readonly"></td></tr>
                         <% } %>
                   </table>
+                  <input id="questionsTF" name="questionsTF" value="" hidden="hidden">
+                  <input id="questionsMC" name="questionsMC" value="" hidden ="hidden">
               <br>
-              <button type="submit" class="btn btn-primary"></i> Submit</button>
+              <button type="button" onclick="onSubmit()"class="btn btn-primary"></i> Submit</button>
               <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
               <br>
               <br>
@@ -57,6 +58,50 @@
         </div>
       </div>
     </div>
+    <script>
+      function onSubmit(){
+        let questionsTF = [];
+      let questionsMC =[];
+      let mclength = document.getElementById("mclength").value;
+      console.log(mclength);
+      
+      let tflength = document.getElementById("tflength").value;
+      console.log(tflength);
+        for(let count = 0; count < mclength*5; count+4 ){
+          console.log(document.getElementsByName("questionsMC")[count+1].value);
+          console.log(document.getElementsByName("questionsMC")[count+4].value);
+          let mcObject = {
+          Title: document.getElementsByName("questionsMC")[count].value,
+          Option1: document.getElementsByName("questionsMC")[count+1].value,
+          Option1Total: 0,
+          Option2: document.getElementsByName("questionsMC")[count+2].value,
+          Option2Total: 0,
+          Option3: document.getElementsByName("questionsMC")[count+3].value,
+          Option3Total: 0,
+          Option4: document.getElementsByName("questionsMC")[count+4].value,
+          Option4Total: 0
+        }
+        console.log(mcObject);
+        questionsMC.push(mcObject);
+        console.log(questionsMC);
+        document.getElementById("questionsMC").value = JSON.stringify(questionsMC);
+        }
+        for(let count = 0; count < tflength*3; count+ 2){
+          let tfObject = {
+          Title: document.getElementsByName("questionsTF")[count].value,
+          Option1: document.getElementsByName("questionsMC")[count+1].value,
+          Option1Total: 0,
+          Option2: document.getElementsByName("questionsMC")[count+2].value,
+          Option2Total: 0
+          
+        }
+        console.log(tfObject);
+        questionsTF.push(tfObject);
+        console.log(questionsTF);
+        document.getElementById("questionsTF").value = JSON.stringify(questionsTF);
+        }
+      }
+    </script>
   
 
 <% include ../partials/footer.ejs %>

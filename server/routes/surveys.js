@@ -20,7 +20,6 @@ function requireAuth(req, res, next) {
 // define the survey model
 let survey = require("../models/surveys");
 
-
 /* GET surveys List page. READ */
 router.get("/", (req, res, next) => {
   // find all surveys in the surveys collection
@@ -32,11 +31,9 @@ router.get("/", (req, res, next) => {
       res.render("surveys/list", {
         title: "surveys",
         surveys: surveys,
-        displayName: req.user ? req.user.displayName : '',
-        user: req.user
-
+        displayName: req.user ? req.user.displayName : "",
+        user: req.user,
       });
-      
     }
   });
 
@@ -50,18 +47,21 @@ router.get("/", (req, res, next) => {
   });
 
   router.post("/add", requireAuth, (req, res, next) => {
-    console.log(req.body); //author, title, question, row
+    console.log(req.body.questionsMC);
+    console.log(req.body.questionsTF);
+    console.log("Parsed information");
+    console.log(JSON.parse(req.body.questionsMC));
+    console.log(JSON.parse(req.body.questionsTF));
 
-  let newSurvey = survey({
-    "User": req.user.id,
-    "Title": req.body.title,
-     "Author": req.body.author,
-     "MCQuestions": req.body.questionMC,
-     "TFQuestions": req.body.questionTF
-   
-   });
-   survey.create(newSurvey, (err, survey)=>{
-    if(err){
+    let newSurvey = survey({
+      User: req.user.id,
+      Title: req.body.title,
+      Author: req.body.author,
+      MCQuestions: JSON.parse(req.body.questionsMC),
+      TFQuestions: JSON.parse(req.body.questionsTF),
+    });
+    survey.create(newSurvey, (err, survey) => {
+      if (err) {
         console.log(err);
         res.end(err);
       } else {
@@ -93,8 +93,8 @@ router.get("/", (req, res, next) => {
       _id: id,
       Title: req.body.title,
       Author: req.body.author,
-      MCQuestions: req.body.questionMC,
-      TFQuestions: req.body.questionTF,
+      MCQuestions: JSON.parse(req.body.questionsMC),
+      TFQuestions: JSON.parse(req.body.questionsTF),
     });
     survey.updateOne({ _id: id }, editedSurvey, (err) => {
       if (err) {
@@ -115,10 +115,9 @@ router.get("/take/:id", (req, res, next) => {
       console.log(err);
       res.end(err);
     } else {
-      res.render("surveys/takeSurvey", {
+      res.render("surveys/take", {
         title: "Take Survey",
         surveys: surveyToTake,
-        displayName: req.user ? req.user.displayName : "",
       });
     }
   });
@@ -131,20 +130,18 @@ router.post("/take/:id", (req, res, next) => {
     _id: id,
     Title: req.body.title,
     Author: req.body.author,
-    MCQuestions: req.body.questionMC,
-    TFQuestions: req.body.questionTF,
+    MCQuestions: JSON.parse(req.body.questionsMC),
+    TFQuestions: JSON.parse(req.body.questionsTF),
   });
-  survey.create(completedSurvey, (err, survey) => {
+  survey.updateOne({ _id: id }, completedSurvey, (err) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
-      //refresh the survey index page
       res.redirect("/surveys");
     }
   });
 });
-
 // GET - process the delete by user id
 router.get("/delete/:id", requireAuth, (req, res, next) => {
   let id = req.params.id;
