@@ -21,33 +21,40 @@
                     <td class="text-left col-12"><input type="text" class="form-control" name="title" value="<%= surveys.Title %>" required></td>  
                   </tr>
                   <tr>
-                    <th class="text-left col-12"> MC Questions: </th> 
-                    <input id="mclength" value="<%=surveys.MCQuestions.length%>">
-
-                    
+                    <th class="text-left col-12"> MC Questions: </th>
                   </tr>
                     <% for(let count = 0; count < surveys.MCQuestions.length; count++) { %>
-                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Title %>" required></td></tr>
-                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option1 %>" required ></td></tr> 
-                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option2 %>" required></td></tr>
-                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option3 %>" required></td></tr>
-                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsMC" value="<%= surveys.MCQuestions[count].Option4 %>" required></td></tr>
+                      <!-- <form class="form" method="post"> -->
+                        <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="questionType" value="MC"></td></tr>
+                        <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="surveyID" value="<%= surveys._id %>"></td></tr>
+                      <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="mcID" value="<%= surveys.MCQuestions[count]._id %>"></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" id="questionMC" name="question" value="<%= surveys.MCQuestions[count].Title %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" id="optionMC1" name="option1" value="<%= surveys.MCQuestions[count].Option1 %>" required ></td></tr> 
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" id="optionMC2" name="option2" value="<%= surveys.MCQuestions[count].Option2 %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" id="optionMC3" name="option3" value="<%= surveys.MCQuestions[count].Option3 %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" id="optionMC4" name="option4" value="<%= surveys.MCQuestions[count].Option4 %>" required></td></tr>
+                      <tr><td><button type="button" onclick="saveMC()" class="btn btn-success"></i>Save Changes</button></td></tr>
+                    <!-- </form> -->
                       <% } %>
                       <tr>
                         <th class="text-left col-12"> TF Questions: </th> 
-                        <input id="tflength" value="<%=surveys.TFQuestions.length%>">
-
                       </tr>
                       <% for(let count = 0; count < surveys.TFQuestions.length; count++) { %>
-                        <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsTF" value="<%= surveys.TFQuestions[count].Title %>" required></td></tr>
-                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="questionsTF" value="<%= surveys.TFQuestions[count].Option1 %>" required readonly="readonly"></td></tr>
-                    <tr> <td class="text-left col-12"><input type="text" class="form-control" name="questionsTF" value="<%= surveys.TFQuestions[count].Option2 %>" required readonly="readonly"></td></tr>
+                        <!-- <form class="form" method="post"> -->
+                          <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="questionType" value="TF"></td></tr>
+                          <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="surveyID" value="<%= surveys._id %>" ></td></tr>
+                          <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="tfID" value="<%= surveys.TFQuestions[count]._id %>"></td></tr>
+                        <tr><td class="text-left col-12"><input type="text" class="form-control" name="question"id="questionTF" name="title" value="<%= surveys.TFQuestions[count].Title %>" required></td></tr>
+                      <tr><td class="text-left col-12"><input type="text" class="form-control" name="option1"  id="optionTF1" value="<%= surveys.TFQuestions[count].Option1 %>" required readonly="readonly"></td></tr>
+                    <tr> <td class="text-left col-12"><input type="text" class="form-control" name="option2" id="optionTF2" value="<%= surveys.TFQuestions[count].Option2 %>" required readonly="readonly"></td></tr>
+                    <tr><td><button type="button" onclick="saveTF()"class="btn btn-success"></i> Save Changes</button></td></tr>
+                  <!-- </form> -->
                         <% } %>
                   </table>
                   <input id="questionsTF" name="questionsTF" value="" hidden="hidden">
                   <input id="questionsMC" name="questionsMC" value="" hidden ="hidden">
               <br>
-              <button type="button" onclick="onSubmit()"class="btn btn-primary"></i> Submit</button>
+              <button type="submit" class="btn btn-primary"></i> Submit</button>
               <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
               <br>
               <br>
@@ -59,47 +66,39 @@
       </div>
     </div>
     <script>
-      function onSubmit(){
-        let questionsTF = [];
+            let questionsTF = [];
       let questionsMC =[];
-      let mclength = document.getElementById("mclength").value;
-      console.log(mclength);
-      
-      let tflength = document.getElementById("tflength").value;
-      console.log(tflength);
-        for(let count = 0; count < mclength*5; count+4 ){
-          console.log(document.getElementsByName("questionsMC")[count+1].value);
-          console.log(document.getElementsByName("questionsMC")[count+4].value);
-          let mcObject = {
-          Title: document.getElementsByName("questionsMC")[count].value,
-          Option1: document.getElementsByName("questionsMC")[count+1].value,
+      function saveMC(){
+        let mcObject = {
+          Title: document.getElementById("questionMC").value,
+          Option1: document.getElementById("optionMC1").value,
           Option1Total: 0,
-          Option2: document.getElementsByName("questionsMC")[count+2].value,
+          Option2: document.getElementById("optionMC2").value,
           Option2Total: 0,
-          Option3: document.getElementsByName("questionsMC")[count+3].value,
+          Option3: document.getElementById("optionMC3").value,
           Option3Total: 0,
-          Option4: document.getElementsByName("questionsMC")[count+4].value,
+          Option4: document.getElementById("optionMC4").value,
           Option4Total: 0
         }
         console.log(mcObject);
         questionsMC.push(mcObject);
         console.log(questionsMC);
         document.getElementById("questionsMC").value = JSON.stringify(questionsMC);
-        }
-        for(let count = 0; count < tflength*3; count+ 2){
-          let tfObject = {
-          Title: document.getElementsByName("questionsTF")[count].value,
-          Option1: document.getElementsByName("questionsMC")[count+1].value,
+      }
+      function saveTF(){
+        let tfObject = {
+          Title: document.getElementById("questionTF").value,
+          Option1: document.getElementById("optionTF1").value,
           Option1Total: 0,
-          Option2: document.getElementsByName("questionsMC")[count+2].value,
-          Option2Total: 0
+          Option2: document.getElementById("optionTF2").value,
+          Option2Total: 0,
           
         }
         console.log(tfObject);
         questionsTF.push(tfObject);
         console.log(questionsTF);
         document.getElementById("questionsTF").value = JSON.stringify(questionsTF);
-        }
+
       }
     </script>
   

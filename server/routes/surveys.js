@@ -59,7 +59,9 @@ router.get("/", (req, res, next) => {
       Author: req.body.author,
       MCQuestions: JSON.parse(req.body.questionsMC),
       TFQuestions: JSON.parse(req.body.questionsTF),
+      // Participants: 0,
     });
+
     survey.create(newSurvey, (err, survey) => {
       if (err) {
         console.log(err);
@@ -78,6 +80,7 @@ router.get("/", (req, res, next) => {
         console.log(err);
         res.end(err);
       } else {
+        console.log(surveyToEdit);
         res.render("surveys/edit", {
           title: "Edit Survey",
           surveys: surveyToEdit,
@@ -88,6 +91,7 @@ router.get("/", (req, res, next) => {
   });
 
   router.post("/edit/:id", requireAuth, (req, res, next) => {
+    console.log(req.body);
     let id = req.params.id;
     let editedSurvey = survey({
       _id: id,
@@ -109,12 +113,18 @@ router.get("/", (req, res, next) => {
 
 //route for the take survey page
 router.get("/take/:id", (req, res, next) => {
+  console.log(
+    "in take route!!!--------------------------------------------------------------"
+  );
   let id = req.params.id;
+  console.log(id);
   survey.findById(id, (err, surveyToTake) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
+      console.log(surveyToTake);
+      // res.send(surveyToTake);
       res.render("surveys/take", {
         title: "Take Survey",
         surveys: surveyToTake,
@@ -123,24 +133,45 @@ router.get("/take/:id", (req, res, next) => {
   });
 });
 
-//post take survey
-router.post("/take/:id", (req, res, next) => {
+router.get("/json/:id", (req, res, next) => {
+  console.log(
+    "in take route!!!--------------------------------------------------------------"
+  );
   let id = req.params.id;
-  let completedSurvey = survey({
-    _id: id,
-    Title: req.body.title,
-    Author: req.body.author,
-    MCQuestions: JSON.parse(req.body.questionsMC),
-    TFQuestions: JSON.parse(req.body.questionsTF),
-  });
-  survey.updateOne({ _id: id }, completedSurvey, (err) => {
+  console.log(id);
+  survey.findById(id, (err, surveyToTake) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
-      res.redirect("/surveys");
+      console.log(surveyToTake);
+      res.send(surveyToTake);
+      // res.render("surveys/take", {
+      //   title: "Take Survey",
+      //   surveys: surveyToTake,
+      // });
     }
   });
+});
+
+//post take survey
+router.post("/take/:id", (req, res, next) => {
+  console.log(req.body);
+  res.end();
+  // let id = req.params.id;
+  // let completedSurvey = answer({
+  //   SurveyID: id,
+  //   MCQuestions: JSON.parse(req.body.questionsMC),
+  //   TFQuestions: JSON.parse(req.body.questionsTF),
+  // });
+  // survey.create(completedSurvey, (err, answer) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.end(err);
+  //   } else {
+  //     res.redirect("/home");
+  //   }
+  // });
 });
 // GET - process the delete by user id
 router.get("/delete/:id", requireAuth, (req, res, next) => {
