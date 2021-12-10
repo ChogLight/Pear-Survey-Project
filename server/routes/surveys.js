@@ -146,7 +146,7 @@ router.post("/take/:id", (req, res, next) => {
       console.log(err);
       res.end(err);
     } else {
-      res.redirect("/about");
+      res.redirect("/");
     }
   });
 });
