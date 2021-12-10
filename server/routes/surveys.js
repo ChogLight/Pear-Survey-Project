@@ -19,6 +19,7 @@ function requireAuth(req, res, next) {
 }
 // define the survey model
 let survey = require("../models/surveys");
+let answer = require("../models/answers");
 
 /* GET surveys List page. READ */
 router.get("/", (req, res, next) => {
@@ -113,9 +114,6 @@ router.get("/", (req, res, next) => {
 
 //route for the take survey page
 router.get("/take/:id", (req, res, next) => {
-  console.log(
-    "in take route!!!--------------------------------------------------------------"
-  );
   let id = req.params.id;
   console.log(id);
   survey.findById(id, (err, surveyToTake) => {
@@ -133,45 +131,24 @@ router.get("/take/:id", (req, res, next) => {
   });
 });
 
-router.get("/json/:id", (req, res, next) => {
-  console.log(
-    "in take route!!!--------------------------------------------------------------"
-  );
+//post take survey
+router.post("/take/:id", (req, res, next) => {
+  console.log(req.body);
+  // res.end();
   let id = req.params.id;
-  console.log(id);
-  survey.findById(id, (err, surveyToTake) => {
+  let completed = answer({
+    SurveyID: id,
+    MCQuestions: JSON.parse(req.body.answersMC),
+    TFQuestions: JSON.parse(req.body.answersTF),
+  });
+  answer.create(completed, (err, answer) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
-      console.log(surveyToTake);
-      res.send(surveyToTake);
-      // res.render("surveys/take", {
-      //   title: "Take Survey",
-      //   surveys: surveyToTake,
-      // });
+      res.redirect("/about");
     }
   });
-});
-
-//post take survey
-router.post("/take/:id", (req, res, next) => {
-  console.log(req.body);
-  res.end();
-  // let id = req.params.id;
-  // let completedSurvey = answer({
-  //   SurveyID: id,
-  //   MCQuestions: JSON.parse(req.body.questionsMC),
-  //   TFQuestions: JSON.parse(req.body.questionsTF),
-  // });
-  // survey.create(completedSurvey, (err, answer) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.end(err);
-  //   } else {
-  //     res.redirect("/home");
-  //   }
-  // });
 });
 // GET - process the delete by user id
 router.get("/delete/:id", requireAuth, (req, res, next) => {

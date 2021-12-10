@@ -29,7 +29,6 @@ let Survey = mongoose.Schema(
         Option2Total: Number,
       },
     ],
-    // Participants: Number,
   },
   {
     collection: "surveys",

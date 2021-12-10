@@ -6,7 +6,8 @@
         <div class="col-md-6">
           <h1><%= title %></h1>
             <form class="form" method="post">
-            <div class=" col-md-12">                         
+            <div class=" col-md-12">    
+              <p>Dear valued client. Please save your answer for each answer you complete!</p>                      
               <table class="table table-bordered table-striped table-hover">
                 <tr>
                   <th class="text-left col-12"> Author: </th> 
@@ -25,9 +26,9 @@
                   </tr>
                     <% for(let count = 0; count < surveys.MCQuestions.length; count++) { %>
                       <!-- <form class="form" method="post"> -->
-                        <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="questionType" value="MC"></td></tr>
-                        <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="surveyID" value="<%= surveys._id %>"></td></tr>
-                      <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="mcID" value="<%= surveys.MCQuestions[count]._id %>"></td></tr>
+                        <input hidden="hidden"  name="questionType" value="MC">
+                        <input hidden="hidden"  name="surveyID" value="<%= surveys._id %>">
+                       <input hidden="hidden"  name="mcID" value="<%= surveys.MCQuestions[count]._id %>">
                       <tr><td class="text-left col-12"><input type="text" class="form-control" id="questionMC" name="question" value="<%= surveys.MCQuestions[count].Title %>" required></td></tr>
                       <tr><td class="text-left col-12"><input type="text" class="form-control" id="optionMC1" name="option1" value="<%= surveys.MCQuestions[count].Option1 %>" required ></td></tr> 
                       <tr><td class="text-left col-12"><input type="text" class="form-control" id="optionMC2" name="option2" value="<%= surveys.MCQuestions[count].Option2 %>" required></td></tr>
@@ -41,9 +42,9 @@
                       </tr>
                       <% for(let count = 0; count < surveys.TFQuestions.length; count++) { %>
                         <!-- <form class="form" method="post"> -->
-                          <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="questionType" value="TF"></td></tr>
-                          <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="surveyID" value="<%= surveys._id %>" ></td></tr>
-                          <tr><td class="text-left col-12"><input hidden="hidden" class="form-control" name="tfID" value="<%= surveys.TFQuestions[count]._id %>"></td></tr>
+                          <input hidden="hidden"  name="questionType" value="TF">
+                          <input hidden="hidden"  id="surveyID" value="<%= surveys._id %>" >
+                         <input hidden="hidden"  name="tfID" value="<%= surveys.TFQuestions[count]._id %>">
                         <tr><td class="text-left col-12"><input type="text" class="form-control" name="question"id="questionTF" name="title" value="<%= surveys.TFQuestions[count].Title %>" required></td></tr>
                       <tr><td class="text-left col-12"><input type="text" class="form-control" name="option1"  id="optionTF1" value="<%= surveys.TFQuestions[count].Option1 %>" required readonly="readonly"></td></tr>
                     <tr> <td class="text-left col-12"><input type="text" class="form-control" name="option2" id="optionTF2" value="<%= surveys.TFQuestions[count].Option2 %>" required readonly="readonly"></td></tr>

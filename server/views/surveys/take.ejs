@@ -1,72 +1,95 @@
 <% include ../partials/header.ejs %>
 
-<!-- MAIN CONTENT -->
-<div class="container">
-      <h1><%= title %></h1>
-        <form class="form" method="post" action="mailto:alex.zuniga@hotmail.ca">
-          <table class="table table-bordered table-striped table-hover">
-            <tr>
-              <th class="text-left col-12"> Author: <%= surveys.Author %> </th> 
-               <input type="text" hidden="hidden"  name="author" value="<%= surveys.Author %>">
-              </tr>
-              <tr>
-                <th class="text-left col-12"> Title: <%= surveys.Title %> </th> 
-                <input type="text" hidden="hidden" name="title" value="<%= surveys.Title %>">
-              </tr>
-              <tr>
-                <th class="text-left col-12"> MC Questions: </th>
-              </tr>
-                <% for(let count = 0; count < surveys.MCQuestions.length; count++) { %>
-                  <% let name1= "question" %>
-                  <input hidden="hidden"  name="questionType" value="MC">
-                  <input hidden="hidden"  name="surveyID" value="<%= surveys._id %>">
-                 <input hidden="hidden"  name="mcID" value="<%= surveys.MCQuestions[count]._id %>">
-                  <tr><th class="text-left col-12"><input type="text" hidden="hidden"  id="questionMC" name="<%= surveys.MCQuestions[count].Title %>" value="<%= surveys.MCQuestions[count].Title %>"><%= surveys.MCQuestions[count].Title %></th></tr>
-                  <tr><td class="text-left col-12"><input type="radio"  id="optionMC1" name="<%= surveys.MCQuestions[count].Title %>" value="<%= surveys.MCQuestions[count].Option1 %>"></td></tr> 
-                  <tr><td class="text-left col-12"><input type="radio"  id="optionMC2" name="<%= surveys.MCQuestions[count].Title %>" value="<%= surveys.MCQuestions[count].Option2 %>"></td></tr>
-                  <tr><td class="text-left col-12"><input type="radio"  id="optionMC3" name="<%= surveys.MCQuestions[count].Title %>" value="<%= surveys.MCQuestions[count].Option3 %>" ></td></tr>
-                  <tr><td class="text-left col-12"><input type="radio"  id="optionMC4" name="<%= surveys.MCQuestions[count].Title %>" value="<%= surveys.MCQuestions[count].Option4 %>" ></td></tr>
-                  <% } %>
-                  <tr>
-                    <th class="text-left col-12"> TF Questions: </th> 
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1><%= title %></h1>
+            <form class="form" method="post">
+            <div class=" col-md-12">  
+              <p>Dear valued participant, thank you so much for completing this survey. Please save your answer for each answer you complete!</p>                       
+              <table class="table table-bordered table-striped table-hover">
+                <tr>
+                  <th class="text-left col-12"> Author: <%= surveys.Author %> </th> 
+                   <input type="text" hidden="hidden"  name="author" value="<%= surveys.Author %>">
                   </tr>
-                  <% for(let count = 0; count < surveys.TFQuestions.length; count++) { %>
-                    <form class="form">
-                      <input hidden="hidden"  name="questionType" value="TF">
-                      <input hidden="hidden"  id="surveyID" value="<%= surveys._id %>" >
-                     <input hidden="hidden"  name="tfID" value="<%= surveys.TFQuestions[count]._id %>">
-                    <tr><th class="text-left col-12"><input type="text" hidden="hidden"   name="<%= surveys.TFQuestions[count].Title %>"id="questionTF" name="title" value="<%= surveys.TFQuestions[count].Title %>" required><%= surveys.TFQuestions[count].Title %></th></tr>
-                  <tr><td class="text-left col-12"><input type="radio"  name="<%= surveys.TFQuestions[count].Title %>"  id="optionTF1" value="<%= surveys.TFQuestions[count].Option1 %>"><%= surveys.TFQuestions[count].Option1 %></td></tr>
-                <tr> <td class="text-left col-12"><input type="radio"  name="<%= surveys.TFQuestions[count].Title %>" id="optionTF2" value="<%= surveys.TFQuestions[count].Option2 %>"><%= surveys.TFQuestions[count].Option2 %></td></tr>
-              </form>
-                    <% } %>
-              </table>
-           <input hidden="hidden"  id="surveyID" value="<%= surveys._id %>" >
-          <button type="button" class="btn btn-primary" onclick="onSubmit()"></i> Submit</button>
-          <a href="/about" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
-          <br>
-          <br>
-          <br>
-          <br>
-      </form>
-</div>
-<script>
-  let survey;
- async function onSubmit(){
-    const id = document.getElementById("surveyID").value;
-    const response =  await fetch(`/surveys/json/${id}`, {
-  method: 'GET'
-})
-// .then(response => response.json())
-// .then(data => {
-//   console.log(data);
-// })
-// .catch((error) => {
-//   console.error('Error:', error);
-// });
-survey = await response.json();
-console.log(survey);
-  }
-  console.log(survey);
-</script>
+                  <tr>
+                    <th class="text-left col-12"> Title: <%= surveys.Title %> </th> 
+                    <input type="text" hidden="hidden" name="title" value="<%= surveys.Title %>">
+                  </tr>
+                  <tr>
+                    <th class="text-left col-12"> MC Questions: </th>
+                  </tr>
+                    <% for(let count = 0; count < surveys.MCQuestions.length; count++) { %>
+                      <form class="form">
+                      <input hidden="hidden"  name="questionType" value="MC">
+                      <input hidden="hidden"  name="surveyID" value="<%= surveys._id %>">
+                     <input hidden="hidden"  name="mcID" value="<%= surveys.MCQuestions[count]._id %>">
+                     <input type="text" hidden="hidden" id="mcTitle" value="<%= surveys.MCQuestions[count].Title %>">
+                      <tr><th class="text-left col-12" id="questionMC" name="question" value="<%= surveys.MCQuestions[count].Title %>"><%= surveys.MCQuestions[count].Title %></th></tr>
+                      <tr><td class="text-left col-12"><input type="radio"  id="optionMC1" name="question" value="<%= surveys.MCQuestions[count].Option1 %>"  ><%= surveys.MCQuestions[count].Option1 %></td></tr> 
+                      <tr><td class="text-left col-12"><input type="radio"  id="optionMC2" name="question" value="<%= surveys.MCQuestions[count].Option2 %>" ><%= surveys.MCQuestions[count].Option2 %></td></tr>
+                      <tr><td class="text-left col-12"><input type="radio"  id="optionMC3" name="question" value="<%= surveys.MCQuestions[count].Option3 %>" ><%= surveys.MCQuestions[count].Option3 %></td></tr>
+                      <tr><td class="text-left col-12"><input type="radio"  id="optionMC4" name="question" value="<%= surveys.MCQuestions[count].Option4 %>" ><%= surveys.MCQuestions[count].Option4 %></td></tr>
+                      <tr><td><button type="button" onclick="saveMC()" class="btn btn-success"></i>Save Answer</button></td></tr>
+                    </form>
+                      <% } %>
+                      <tr>
+                        <th class="text-left col-12"> TF Questions: </th> 
+                      </tr>
+                      <% for(let count = 0; count < surveys.TFQuestions.length; count++) { %>
+                        <form class="form">
+                          <input hidden="hidden"  name="questionType" value="TF">
+                          <input hidden="hidden"  id="surveyID" value="<%= surveys._id %>" >
+                         <input hidden="hidden"  name="tfID" value="<%= surveys.TFQuestions[count]._id %>">
+                         <input type="text" hidden="hidden" id="tfTitle" value="<%= surveys.TFQuestions[count].Title %>">
+                        <tr><th class="text-left col-12" name="question"id="questionTF" name="title" value="<%= surveys.TFQuestions[count].Title %>"><%= surveys.TFQuestions[count].Title %></th></tr>
+                      <tr><td class="text-left col-12"><input type="radio"  name="question"  id="optionTF1" value="<%= surveys.TFQuestions[count].Option1 %>" readonly="readonly"><%= surveys.TFQuestions[count].Option1 %></td></tr>
+                    <tr> <td class="text-left col-12"><input type="radio"  name="question" id="optionTF2" value="<%= surveys.TFQuestions[count].Option2 %>" readonly="readonly"><%= surveys.TFQuestions[count].Option2 %></td></tr>
+                    <tr><td><button type="button" onclick="saveTF()"class="btn btn-success"></i> Save Answer</button></td></tr>
+                  </form>
+                        <% } %>
+                  </table>
+                  <input id="answersTF" name="answersTF" value="" hidden="hidden">
+                  <input id="answersMC" name="answersMC" value="" hidden ="hidden">
+              <br>
+              <button type="submit" class="btn btn-primary"></i> Submit</button>
+              <a href="/about" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+              <br>
+              <br>
+              <br>
+              <br>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+            let answersTF = [];
+      let answersMC =[];
+      function saveMC(){
+        let mcObject = {
+          Question: document.getElementById("mcTitle").value,
+          Answer: $("input:radio[name=question]:checked").val()
+        }
+        console.log(mcObject);
+        answersMC.push(mcObject);
+        console.log(answersMC);
+        document.getElementById("answersMC").value = JSON.stringify(answersMC);
+      }
+      function saveTF(){
+        let tfObject = {
+          Question: document.getElementById("tfTitle").value,
+          Answer: $("input:radio[name=question]:checked").val()
+          
+        }
+        console.log(tfObject);
+        answersTF.push(tfObject);
+        console.log(answersTF);
+        document.getElementById("answersTF").value = JSON.stringify(answersTF);
+
+      }
+    </script>
+  
+
 <% include ../partials/footer.ejs %>
